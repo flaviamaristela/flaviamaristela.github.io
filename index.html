@@ -1,0 +1,139 @@
+<h4><!-- #######  YAY, I AM THE SOURCE EDITOR! #########--></h4>
+<h2 style="color: #5e9ca0;">Artifact Evaluation<span style="color: #2b2301;"> RTAS 2021</span></h2>
+<p>&nbsp;</p>
+<table style="border-collapse: collapse; width: 100%; height: 85px;" border="1">
+<tbody>
+<tr style="height: 34px;">
+<td style="width: 66.6666%; height: 34px; text-align: center;" colspan="2"><strong>EDF-LQ and EDF-GQ main specifications</strong></td>
+</tr>
+<tr style="height: 17px;">
+<td style="width: 20.5219%; height: 17px;">EDF-LQ description</td>
+<td style="width: 46.1447%; height: 17px;">Implementation of partitioned EDF with local queue for soft aperiodic tasks. Partititoning for hard sporadic and soft aperiodic tasks is carried out off-line</td>
+</tr>
+<tr style="height: 17px;">
+<td style="width: 20.5219%; height: 17px;">EDF-GQ description</td>
+<td style="width: 46.1447%; height: 17px;">Implementation of partitioned EDF with global queue for soft aperiodic tasks. Partititoning for hard sporadic&nbsp; tasks is carried out off-line, while soft tasks are placed ina global queue.</td>
+</tr>
+<tr style="height: 17px;">
+<td style="width: 20.5219%; height: 17px;">Input</td>
+<td style="width: 46.1447%; height: 17px;">task set composed of both hard sporadic and soft aperiodic tasks</td>
+</tr>
+<tr>
+<td style="width: 20.5219%;">Output</td>
+<td style="width: 46.1447%;">deadline miss per job, average response time per job, average preemption per job, average migration per job</td>
+</tr>
+</tbody>
+</table>
+<br>
+<!-- TABLE OF CONTENTS -->
+<p><span style="background-color: #2b2301; color: #fff; display: inline-block; padding: 3px 10px; font-weight: bold; border-radius: 5px;">Table of Contents</span></p>
+<ol>
+<li>Artifact Package Content</li>
+<li>Development Environment and System Requirements</li>
+<li>Installation Guide</li>
+<li>Input File</li>
+<li>OutPut Files</li>
+<li>Quick guide for generating main results</li>
+</ol>
+<p><span style="background-color: #2b2301; color: #fff; display: inline-block; padding: 3px 10px; font-weight: bold; border-radius: 5px;">Artifact Package Content</span></p>
+<p>The submitted artifact package content is composed of three main files:<br><br>
+<strong>EDF-LQ.py</strong>: corresponding to the implementation of EDF-LQ scheduling approach<br>
+<strong>EDF-GQ.py</strong>: corresponding to the implementation of EDF-GQ scheduling approach<br>
+<strong>taskset.py</strong>: input task set file<br><br></p>
+<!-- DEVELOPMENT ENVIRONMENT -->
+<p><span style="background-color: #2b2301; color: #fff; display: inline-block; padding: 3px 10px; font-weight: bold; border-radius: 5px;">Development Environment and System Requirements</span></p>
+<p align="justify">The simulation procedure described in the paper <strong>Effectively Scheduling Hard and Soft Real-Time Tasks on Multiprocessors</strong> was carried out in 
+<span style="font-family: courier new; font-size: 16px;">Simso</span> simulation tool, available in <a href="http://projects.laas.fr/simso/"><span style="font-family: courier new; font-size: 14px;">Simso Project</span></a> home page. 
+<span style="font-family: courier new; font-size: 14px;">Simso</span> is a simulation tool developed in python, and in our simulation set-up it was installed on Windows 10 machine. WIndows 8 was also considered in our initial experiments</p>
+<p align="justify">The machine used in the paper simulations was an Intel core i7 architecture, with 16GB of RAM.</p>
+<p align="justify">In order to reproduce our experimental setup, users must ensure the following pre-requisites.</p>
+<ul style="list-style-type: square;">
+<li>Python 3.7: available at <a href="https://www.python.org/downloads/release/python-370/">Python Project</a> Home Page</li>
+<li>Simso Simulation Tool: <a href="https://pypi.python.org/pypi/simso/">Source Code</a> and <a href="https://pypi.python.org/pypi/simsogui/">Graphical User Interface</a></li>
+<li>Developed scheduler source code: EDF-LQ, EDF-GQ</li>
+</ul>
+<!-- INSTRUCTIONS -->
+<p><span style="background-color: #2b2301; color: #fff; display: inline-block; padding: 3px 10px; font-weight: bold; border-radius: 5px;">Instructions ( -- Microsoft Windows --)</span></p>
+<h4>Installing Python</h4>
+<ul style="list-style-type: square;">
+<li>Download and install Python interpreter. Our tool was developed in Python 3.7, thus we suggest users adopt the same version;</li>
+<li>Add <span style="font-family: courier new; font-size: 14px;">python</span> executable file to the "<em>path environment variable</em>" (see Figures 1 and 2);</li>
+<li>Add <span style="font-family: courier new; font-size: 14px;">Scripts</span> folder to the "<em>path environment variable".</em></li>
+</ul>
+
+<table>
+  <tr>
+     <td><img src="images\system-properties.jpg" alt="some text" width=447 height=508></td>
+	 <td><img src="images\environment.jpg" alt="some text" width=494 height=468></td>
+  </tr>
+</table>
+
+<h4>Installing <span style="font-family: courier new; font-size: 14px;">Simso</span></h4>
+<ol>
+<li>Download and install Simso simulation tool (source code and GUI);</li>
+<li>use <span style="font-family: courier new;font-size:14px;">pip</span> program (available in <span style="font-family: courier new;font-size:14px;">\Python\Python37\Scripts</span>) to install 
+<span style="font-family: courier new;font-size:14px;">simsogui</span> package;
+<br>Command: <span style="font-family: courier new;font-size:14px;">pip install simsogui</span></li>
+<li>Download the according wheel for PyQt4 available on <span style="font-family: courier new;font-size:14px;">https://www.lfd.uci.edu/~gohlke/pythonlibs/#pyqt4</span></li>
+<li>use <span style="font-family: courier new;font-size:14px;">pip</span> to install the package for PyQt4</li>
+<li>We installed PyQt4 in Python 3.7 running on a x64 processor.
+<br>Command: <span style="font-family: courier new;font-size:14px;">pip install PyQt4-4.11.4-cp37-cp37m-win amd64.whl</span></li>
+</ol>
+<br>
+<!-- ARTFACT FILES -->
+<p><span style="background-color: #2b2301; color: #fff; display: inline-block; padding: 3px 10px; font-weight: bold; border-radius: 5px;">Artifact Package Files</span></p>
+<h4>Script for generating task sets:</h4>
+<p>The script file we used can be divided into three main parts:</p>
+<ul style="list-style-type: square;">
+<li>file header: contains the input parameters that will rule the task sets generation;</li>
+<li>generation procedure: responsible for generating the task set parameters;</li>
+<li>output file configuration: defines the output files that will be generated after simulation. These files contains the the output parameters we use to generate our graphs.</li>
+</ul>
+<p><span style="text-decoration: underline;">File header:</span></p>
+<p><span style="color: #008000; font-size: 14px;">#file header<br /># number of hard sporadic tasks</span>
+<br><span style="font-family: courier new;font-size: 14px;">nperiodic = 6</span>
+<br><span style="color: #008000; font-size: 14px;"># number of soft aperiodic tasks</span>
+<br><span style="font-family: courier new;font-size: 14px;">naperiodic = 6</span>
+<br><span style="color: #008000; font-size: 14px;"># total utilization of hard sporadic tasks</span>
+<br><span style="font-family: courier new;font-size: 14px;">up = 3.2</span>
+<br><span style="color: #008000; font-size: 14px;"># total utilization of soft aperiodic tasks</span>
+<br><span style="font-family: courier new;font-size: 14px;">ua = 0.2</span>
+<br><span style="color: #008000; font-size: 14px;"># total number of task sets</span>
+<br><span style="font-family: courier new;font-size: 14px;">nsets = 300
+<br>min = 1
+<br>max = 50
+<br>simulation_duration = 1500</span></p>
+<p>In this example, we configure the output file to generate 300 task sets, with 6 hard sporadic tasks and 6 soft aperiodic tasks. The simulation is carried out during 2000 ms. min and max parameters represent, respectively, the minimum and maximum values used in the in the task's period generation proceudre.</p>
+<p>In our simulation set-up, hard tasks were assumed to have 80% of total system utilization. Thus, for task sets with m=4 processors, the utilization of hard sporadic tasks were set to be up=3.2.</p>
+<p>As for the utilization of soft tasks, they were defined according to to four main ranges, as described in the paper. In this case, the output task sets are configured to have total utilization of 25% of the available slack, which is&nbsp; ua=0.2.</p>
+<p>&nbsp;</p>
+<p><span style="text-decoration: underline;">File generation procedure:</span></p>
+<p><span style="font-family: courier new;font-size:14px;">uperiodic = task_generator.UUniFastDiscard(nperiodic, up, nsets)</span></p>
+<p><span style="font-family: courier new;font-size:14px;">tperiodic = task_generator.gen_periods_loguniform(nperiodic, nsets, min, max, round_to_int=True)</span></p>
+<p>uperiodic is an array which stores the utilization of each periodic task according to UUNiFastDiscard procedure, implementd in Simso.</p>
+<p>tperiodic is another array which contains the period of each hard sporadic task. As shown in the command line, such periods are generated according to a loguniform distribution, bounded within min and max values.</p>
+<p>&nbsp;</p>
+<p><span style="text-decoration: underline;">Output file configuration:</span></p>
+<p>This section of the file is reponsible for organizing the output file. Bellow, a short illustrative example.&nbsp;</p>
+<span style="font-family: courier new;font-size: 14px;">arq.write("\n\n" + 8 * x + "# &nbsp;Add a processor:")
+<br>arq.write("\n" + 8 * x + "configuration.add_processor(name=\"CPU 1\", identifier=1)")
+<br>arq.write("\n" + 8 * x + "configuration.add_processor(name=\"CPU 2\", identifier=2)")
+<br>arq.write("\n" + 8 * x + "configuration.add_processor(name=\"CPU 3\", identifier=3)")
+<br>arq.write("\n" + 8 * x + "configuration.add_processor(name=\"CPU 4\", identifier=4)")
+<br><br>arq.write("\n\n" + 8 * x + "# Add a scheduler:")
+<br>arq.write("\n" + 8 * x + "# configuration.scheduler_info.filename = \"C:\...\simso\schedulers\\EDF_LQ.py\"")
+<br>arq.write("\n" + 8 * x + "configuration.scheduler_info.clas = \"simso.schedulers.EDF_LQ\"")</span>
+<p>For a more detailed version of this script, which highlights the sections that need to be edited, readers can consult <a href="input-taskset.html">input-taskset.html"</a> file, which shows in red which parts of the file need to be edited so that the script run.</p>
+<h4>Input Task set File:</h4>
+<br>
+<!-- USING ARTFACT FILES -->
+<p><span style="background-color: #2b2301; color: #fff; display: inline-block; padding: 3px 10px; font-weight: bold; border-radius: 5px;">Using our artifact</span></p>
+<p>After Python and Simso are properly installed, the next step is to prepare Simso to run EDF-LQ and EDF-GQ. TO do so, it is necessary to copy these schedulers to the simso schedulers folder.</p>
+<ul>
+<li>Copy our scheduler files (<span style="color: #0000ff;">EDF-LQ.py</span> and <span style="color: #0000ff;">EDF-GQ.py</span>) into Simso scheduler folder: <span style="font-family: courier new; font-size: 16px;">simso\schedulers</span></li>
+</ul>
+<p>Our package contains an input task set. However, we also include an script in Python we used to generate our simulation task sets according to our needs. This file is described bellow:</p>
+<ul>
+<li>Use the Microsoft Windows terminal to run the script: python taskset.py</li>
+</ul>
+

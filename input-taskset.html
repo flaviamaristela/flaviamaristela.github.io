@@ -1,0 +1,131 @@
+<a href="index.html">VOLTAR</a><br><br>
+<pre><span style="color: #0000ff;">import </span>sys
+<span style="color: #0000ff;">from</span> simso.core import Model
+<span style="color: #0000ff;">from</span> simso.configuration <span style="color: #0000ff;">import</span> Configuration
+<span style="color: #0000ff;">from</span> simso.core.Task <span style="color: #0000ff;">import</span> SporadicTask
+
+<span style="color: #0000ff;">def</span> main(argv):
+    <span style="color: #0000ff;">if len</span>(argv) == <span style="color: #0000ff;">2</span>:
+        <em><span style="color: #808080;">#  </span></em><em><span style="color: #808080;">Configuration load from a file.</span></em>
+        configuration = Configuration(argv[<span style="color: rgb(0, 0, 255);">1</span>])
+    else:
+        <em><span style="color: #808080;"># Manual configuration:</span></em>
+        configuration = Configuration()
+        configuration.duration = <span style="color: rgb(0, 0, 255);">1500 </span>* configuration.cycles_per_ms
+        configuration.etm = &quot;acet&quot;
+        <em><span style="color: #808080;">#  </span></em><em><span style="color: #808080;">Add tasks:</span></em>
+        configuration.add_task(name=<span style="color: rgb(0, 128, 0);">&quot;Task8&quot;</span>, identifier=<span style="color: rgb(0, 0, 255);">8</span>, period=<span style="color: rgb(0, 0, 255);">18.0</span>, activation_date=<span style="color: rgb(0, 0, 255);">0</span>, abort_on_miss=False, task_type=<span style="color: rgb(0, 128, 0);">&quot;Sporadic&quot;</span>, wcet=<span style="color: rgb(0, 0, 255);">0.727555</span>, acet=<span style="color: rgb(0, 0, 255);">0.727555</span>, et_stddev=<span style="color: rgb(0, 0, 255);">0.2425183333333333</span> , list_activation_dates=[<span style="color: rgb(0, 0, 255);">68</span>, <span style="color: rgb(0, 0, 255);">126</span>, <span style="color: rgb(0, 0, 255);">176</span>, <span style="color: rgb(0, 0, 255);">208</span>, <span style="color: rgb(0, 0, 255);">269</span>, <span style="color: rgb(0, 0, 255);">292</span>], deadline=<span style="color: rgb(0, 0, 255);">18.0</span>)
+        configuration.add_task(name=<span style="color: rgb(0, 128, 0);">&quot;Task7&quot;</span>, identifier=<span style="color: rgb(0, 0, 255);">7</span>, period=<span style="color: rgb(0, 0, 255);">13.0</span>, activation_date=<span style="color: rgb(0, 0, 255);">0</span>, abort_on_miss=False, task_type=<span style="color: rgb(0, 128, 0);">&quot;Sporadic&quot;</span>, wcet=<span style="color: rgb(0, 0, 255);">0.22647</span>, acet=<span style="color: rgb(0, 0, 255);">0.22647</span>, et_stddev=<span style="color: rgb(0, 0, 255);">0.07549</span> , list_activation_dates=[<span style="color: rgb(0, 0, 255);">11</span>, <span style="color: rgb(0, 0, 255);">26</span>, <span style="color: rgb(0, 0, 255);">40</span>], deadline=<span style="color: rgb(0, 0, 255);">13.0</span>)
+        configuration.add_task(name=<span style="color: rgb(0, 128, 0);">&quot;Task6&quot;</span>, identifier=<span style="color: rgb(0, 0, 255);">6</span>, period=<span style="color: rgb(0, 0, 255);">3.0</span>, activation_date=<span style="color: rgb(0, 0, 255);">0</span>, abort_on_miss=False, task_type=<span style="color: rgb(0, 128, 0);">&quot;Sporadic&quot;</span>, wcet=<span style="color: rgb(0, 0, 255);">0.054511</span>, acet=<span style="color: rgb(0, 0, 255);">0.054511</span>, et_stddev=<span style="color: rgb(0, 0, 255);">0.018170333333333333</span> , list_activation_dates=[<span style="color: rgb(0, 0, 255);">3</span>, <span style="color: rgb(0, 0, 255);">9</span>, <span style="color: rgb(0, 0, 255);">16</span>, <span style="color: rgb(0, 0, 255);">19</span>], deadline=<span style="color: rgb(0, 0, 255);">3.0</span>)
+        configuration.add_task(name=<span style="color: rgb(0, 128, 0);">&quot;Task4&quot;</span>, identifier=<span style="color: rgb(0, 0, 255);">4</span>, period=<span style="color: rgb(0, 0, 255);">6.0</span>, activation_date=<span style="color: rgb(0, 0, 255);">0</span>, abort_on_miss=True, task_type=<span style="color: rgb(0, 128, 0);">&quot;Periodic&quot;</span>, wcet=<span style="color: rgb(0, 0, 255);">0.605694</span>, acet=<span style="color: rgb(0, 0, 255);">0.605694</span>, et_stddev=<span style="color: rgb(0, 0, 255);">0</span>, deadline=<span style="color: rgb(0, 0, 255);">6.0</span>)
+        configuration.add_task(name=<span style="color: rgb(0, 128, 0);">&quot;Task5&quot;</span>, identifier=<span style="color: rgb(0, 0, 255);">5</span>, period=<span style="color: rgb(0, 0, 255);">31.0</span>, activation_date=<span style="color: rgb(0, 0, 255);">0</span>, abort_on_miss=False, task_type=<span style="color: rgb(0, 128, 0);">&quot;Sporadic&quot;</span>, wcet=<span style="color: rgb(0, 0, 255);">0.743659</span>, acet=<span style="color: rgb(0, 0, 255);">0.743659</span>, et_stddev=<span style="color: rgb(0, 0, 255);">0.24788633333333332</span> , list_activation_dates=[<span style="color: rgb(0, 0, 255);">19</span>, <span style="color: rgb(0, 0, 255);">60</span>, <span style="color: rgb(0, 0, 255);">105</span>, <span style="color: rgb(0, 0, 255);">153</span>], deadline=<span style="color: rgb(0, 0, 255);">31.0</span>)
+        configuration.add_task(name=<span style="color: rgb(0, 128, 0);">&quot;Task2&quot;</span>, identifier=<span style="color: rgb(0, 0, 255);">2</span>, period=<span style="color: rgb(0, 0, 255);">6.0</span>, activation_date=<span style="color: rgb(0, 0, 255);">0</span>, abort_on_miss=True, task_type=<span style="color: rgb(0, 128, 0);">&quot;Periodic&quot;</span>, wcet=<span style="color: rgb(0, 0, 255);">3.152174</span>, acet=<span style="color: rgb(0, 0, 255);">3.152174</span>, et_stddev=<span style="color: rgb(0, 0, 255);">0</span>, deadline=<span style="color: rgb(0, 0, 255);">6.0</span>)
+        configuration.add_task(name=<span style="color: rgb(0, 128, 0);">&quot;Task1&quot;</span>, identifier=<span style="color: rgb(0, 0, 255);">1</span>, period=<span style="color: rgb(0, 0, 255);">30.0</span>, activation_date=<span style="color: rgb(0, 0, 255);">0</span>, abort_on_miss=True, task_type=<span style="color: rgb(0, 128, 0);">&quot;Periodic&quot;</span>, wcet=<span style="color: rgb(0, 0, 255);">2.057725</span>, acet=<span style="color: rgb(0, 0, 255);">2.057725</span>, et_stddev=<span style="color: rgb(0, 0, 255);">0</span>, deadline=<span style="color: rgb(0, 0, 255);">30.0</span>)
+        configuration.add_task(name=<span style="color: rgb(0, 128, 0);">&quot;Task3&quot;</span>, identifier=<span style="color: rgb(0, 0, 255);">3</span>, period=<span style="color: rgb(0, 0, 255);">1.0</span>, activation_date=<span style="color: rgb(0, 0, 255);">0</span>, abort_on_miss=True, task_type=<span style="color: rgb(0, 128, 0);">&quot;Periodic&quot;</span>, wcet=<span style="color: rgb(0, 0, 255);">0.105097</span>, acet=<span style="color: rgb(0, 0, 255);">0.105097</span>, et_stddev=<span style="color: rgb(0, 0, 255);">0</span>, deadline=<span style="color: rgb(0, 0, 255);">1.0</span>)
+
+        <span style="color: #808080;">#  Add a processor:</span>
+        configuration.add_processor(name=<span style="color: rgb(0, 128, 0);">&quot;CPU 1&quot;</span>, identifier=1)
+
+        <em><span style="color: #808080;"># Add a scheduler:</span></em>        
+        configuration.scheduler_info.clas = <span style="color: rgb(0, 128, 0);">&quot;simso.schedulers.QPS&quot;</span>
+
+    <span style="color: rgb(128, 128, 128);"><em># Check the config before trying to run it.</em></span>
+    configuration.check_all()
+
+    <span style="color: rgb(128, 128, 128);"><em>#  Init a model from the configuration.</em></span>
+    model = Model(configuration)
+
+    <span style="color: rgb(128, 128, 128);"><em># Execute the simulation.</em></span>
+    <span style="color: rgb(0, 0, 255);">try:</span>
+        model.run_model()
+    <span style="color: rgb(0, 0, 255);">except:</span>
+        <span style="color: rgb(0, 0, 255);">return()</span>
+
+    <span style="color: rgb(128, 128, 128);"><em># Print complete log file.</em></span>
+    print(<span style="color: rgb(0, 128, 0);">&quot;Imprimindo Arquivo de Log ** LOG COMPLETO **&quot;</span>)
+    arq1 = open(<span style="color: rgb(0, 128, 0);">&quot;C:\log\log_completo.txt&quot;</span>, <span style="color: rgb(0, 128, 0);">&quot;a&quot;</span>)
+    arq1.write(&quot;<span style="color: rgb(0, 0, 255);">\n&quot;</span> + <span style="color: rgb(0, 128, 0);">&quot;CONJUNTO&quot;</span> + <span style="color: rgb(0, 128, 0);">&quot;1&quot;</span>)
+    <span style="color: rgb(0, 0, 255);">for</span> log <span style="color: rgb(0, 0, 255);">in</span> model.logs:
+        arq1.write(&quot;<span style="color: rgb(0, 0, 255);">\n&quot;</span> + <span style="color: rgb(0, 0, 255);">str</span>(log))
+    arq1.close()
+
+    <em><span style="color: rgb(128, 128, 128);"># Print Terminated vs Aborted log file</span></em>
+    print(<span style="color: rgb(0, 128, 0);">&quot;Imprimindo Arquivo de Log ** TERMINATED vs. ABORTED TASKS **&quot;</span>)
+    cont_terminated = <span style="color: rgb(0, 0, 255);">0</span>
+    cont_aborted = <span style="color: rgb(0, 0, 255);">0</span>
+
+    <span style="color: rgb(0, 0, 255);">for</span> log <span style="color: rgb(0, 0, 255);">in</span> model.logs:
+        <span style="color: rgb(0, 0, 255);">if str</span>(log).find(<span style="color: rgb(0, 128, 0);">&quot;Terminated&quot;</span>) &gt; <span style="color: rgb(0, 0, 255);">0</span>:
+            cont_terminated = cont_terminated + <span style="color: rgb(0, 0, 255);">1</span>
+        <span style="color: rgb(0, 0, 255);">if str</span>(log).find(<span style="color: rgb(0, 128, 0);">&quot;aborted&quot;</span>) &gt; <span style="color: rgb(0, 0, 255);">0</span>:
+            <span style="color: rgb(0, 0, 255);">if float</span>(<span style="color: rgb(0, 0, 255);">str</span>(log).partition(&quot;:&quot;)[<span style="color: rgb(0, 0, 255);">2</span>].partition(&quot;&#39;&quot;)[<span style="color: rgb(0, 0, 255);">0</span>]) &gt; <span style="color: rgb(0, 0, 255);">0.00001</span>:
+                cont_aborted = cont_aborted + <span style="color: rgb(0, 0, 255);">1</span>
+    arq2 = <span style="color: rgb(0, 0, 255);">open</span>(<span style="color: rgb(0, 128, 0);">&quot;C:\log\log_aborted_terminated.txt&quot;, &quot;a&quot;</span>)
+    arq2.write(&quot;<span style="color: rgb(0, 0, 255);">\n</span>&quot; + <span style="color: rgb(0, 128, 0);">&quot;CONJUNTO&quot;</span> + <span style="color: rgb(0, 128, 0);">&quot;1&quot;</span>)
+    arq2.write(&quot;<span style="color: rgb(0, 0, 255);">\n</span><span style="color: rgb(0, 128, 0);">%d %d</span>&quot; % (cont_terminated, cont_aborted))
+    arq2.close()
+
+    <span style="color: rgb(128, 128, 128);"><em># Print average response time log file.</em></span>
+    print(<span style="color: rgb(0, 128, 0);">&quot;Imprimindo Arquivo de Log ** RESPONSE TIME AND TARDINESS **&quot;</span>)
+
+    arq3 = <span style="color: rgb(0, 0, 255);">open</span>(<span style="color: rgb(0, 128, 0);">&quot;C:\log\log_avg_response_time.txt&quot;</span>, <span style="color: rgb(0, 128, 0);">&quot;a&quot;</span>)
+    arq3.write(&quot;<span style="color: rgb(0, 0, 255);">\n</span>&quot; + <span style="color: rgb(0, 128, 0);">&quot;CONJUNTO&quot; + &quot;1&quot;</span>)
+
+    <em><span style="color: rgb(128, 128, 128);"># Print tardiness log file.</span></em>
+    arq4 = open(<span style="color: rgb(0, 128, 0);">&quot;C:\log\log_tardiness.txt&quot;</span>, <span style="color: rgb(0, 128, 0);">&quot;a&quot;</span>)
+    arq4.write(&quot;<span style="color: rgb(0, 0, 255);">\n</span>&quot; + <span style="color: rgb(0, 128, 0);">&quot;CONJUNTO&quot; + &quot;1&quot;</span>)
+
+    <span style="color: rgb(128, 128, 128);"><em># Print number of jobs log file.</em></span>
+    <span style="color: rgb(0, 0, 255);">print</span>(<span style="color: rgb(0, 128, 0);">&quot;Imprimindo Arquivo de Log ** NUMBER OF JOBS (Executed vs. Missed) **&quot;</span>)
+    arq7 = open(<span style="color: rgb(0, 128, 0);">&quot;C:\log\log_number_jobs.txt&quot;</span>, <span style="color: rgb(0, 128, 0);">&quot;a&quot;</span>)
+    arq7.write(&quot;<span style="color: rgb(0, 0, 255);">\n</span>&quot; + <span style="color: rgb(0, 128, 0);">&quot;CONJUNTO&quot;</span> + <span style="color: rgb(0, 128, 0);">&quot;1&quot;</span>)
+    <span style="color: rgb(0, 0, 255);">for</span> task <span style="color: rgb(0, 0, 255);">in</span> model.results.tasks:
+        cont = <span style="color: rgb(0, 0, 255);">0</span>
+        total_response_time = <span style="color: rgb(0, 0, 255);">0</span>
+        tardiness = <span style="color: rgb(0, 0, 255);">0</span>
+        jobs_deadline_miss = <span style="color: rgb(0, 0, 255);">0</span>
+        <span style="color: rgb(0, 0, 255);">for</span> job <span style="color: rgb(0, 0, 255);">in</span> task.jobs:
+            <span style="color: rgb(0, 0, 255);">if isinstance</span>(job.task, SporadicTask) <span style="color: rgb(0, 0, 255);">and</span> job.end_date <span style="color: rgb(0, 0, 255);">is not None</span>:
+                <span style="color: rgb(0, 0, 255);">if</span> (job.end_date/<span style="color: rgb(0, 0, 255);">1000000</span>) - job.absolute_deadline &lt;= <span style="color: rgb(0, 0, 255);">0</span>:
+                    tardiness = <span style="color: rgb(0, 0, 255);">0</span>
+                <span style="color: rgb(0, 0, 255);">else:</span>
+                    tardiness = (job.end_date/<span style="color: rgb(0, 0, 255);">1000000</span>) - job.absolute_deadline
+                    jobs_deadline_miss = jobs_deadline_miss + <span style="color: rgb(0, 0, 255);">1</span>
+                <span style="color: rgb(0, 0, 255);">if</span> tardiness &gt; <span style="color: rgb(0, 0, 255);">0</span>:
+                    arq4.write(&quot;<span style="color: rgb(0, 0, 255);">\n</span><span style="color: rgb(0, 128, 0);">%s %s %.6f ms %.6f ms %.6f ms</span>&quot; % (task.name, job.name, job.absolute_deadline, job.end_date/<span style="color: rgb(0, 0, 255);">1000000</span>, tardiness))
+            <span style="color: rgb(0, 0, 255);">if</span> (job.response_time <span style="color: rgb(0, 0, 255);">is not None</span>):
+                total_response_time = total_response_time + (job.response_time/job.deadline)
+                cont = cont + <span style="color: rgb(0, 0, 255);">1</span>
+        <span style="color: rgb(0, 0, 255);">if</span> cont &gt; <span style="color: rgb(0, 0, 255);">0</span>:
+            arq3.write(&quot;<span style="color: rgb(0, 0, 255);">\n</span><span style="color: rgb(0, 128, 0);">%s %.6f %d %.6f</span> &quot; % (task.name, total_response_time/cont, task._job_count, total_response_time))
+            arq7.write(&quot;<span style="color: rgb(0, 0, 255);">\n</span><span style="color: rgb(0, 128, 0);">%s %d %d %d</span> &quot; % (task.name, cont, jobs_deadline_miss, cont+jobs_deadline_miss ))
+    arq3.close()
+    arq4.close()
+    arq7.close()
+
+    <span style="color: rgb(128, 128, 128);"><em># Print preemption and migration log file.</em></span>
+    <span style="color: rgb(0, 0, 255);">print</span>(<span style="color: rgb(0, 128, 0);">&quot;Imprimindo Arquivo de Log ** PREEMPTION AND MIGRATION **&quot;</span>)
+    arq5 = <span style="color: rgb(0, 0, 255);">open</span>(<span style="color: rgb(0, 128, 0);">&quot;C:\log\log_preemption_migration.txt&quot;</span>, <span style="color: rgb(0, 128, 0);">&quot;a&quot;</span>)
+    arq5.write(&quot;<span style="color: rgb(0, 0, 255);">\n</span>&quot; + <span style="color: rgb(0, 128, 0);">&quot;CONJUNTO&quot;</span> + <span style="color: rgb(0, 128, 0);">&quot;1&quot;</span>)
+    <span style="color: rgb(0, 0, 255);">for</span> task <span style="color: rgb(0, 0, 255);">in</span> model.results.tasks.values():
+        arq5.write(&quot;<span style="color: rgb(0, 0, 255);">\n</span><span style="color: rgb(0, 128, 0);">%s %d %d</span>&quot; % (task.name, task.preemption_count, task.migration_count))
+    arq5.close()
+
+    <span style="color: rgb(128, 128, 128);"><em># Print processor_load log file.</em></span>
+    <span style="color: rgb(0, 0, 255);">print</span>(<span style="color: rgb(0, 128, 0);">&quot;Imprimindo Arquivo de Log ** PROCESSOR LOAD FILE **&quot;</span>)
+    arq6 = <span style="color: rgb(0, 0, 255);">open</span>(<span style="color: rgb(0, 128, 0);">&quot;C:\log\log_processor_load.txt&quot;, &quot;a&quot;</span>)
+    arq6.write(&quot;<span style="color: rgb(0, 0, 255);">\n</span>&quot; + <span style="color: rgb(0, 128, 0);">&quot;CONJUNTO&quot; + &quot;1&quot;</span>)
+    arq8 = <span style="color: rgb(0, 0, 255);">open</span>(<span style="color: rgb(0, 128, 0);">&quot;C:\log\log_average_load_slack.txt&quot;, &quot;a&quot;</span>)
+    arq8.write(&quot;<span style="color: rgb(0, 0, 255);">\n</span>&quot; + <span style="color: rgb(0, 128, 0);">&quot;CONJUNTO&quot; + &quot;1&quot;(</span>)
+    sum_load = <span style="color: rgb(0, 0, 255);">0</span>
+    sum_overhead = <span style="color: rgb(0, 0, 255);">0</span>
+    <span style="color: rgb(0, 0, 255);">for</span> processor, load, overhead <span style="color: rgb(0, 0, 255);">in</span> model.results.calc_load():
+        sum_load += load
+        sum_overhead += overhead
+        arq6.write(&quot;<span style="color: rgb(0, 0, 255);">\n</span><span style="color: rgb(0, 128, 0);">%s %.6f %.6f %.6f ms</span>&quot; % (processor.name, load + overhead, load, overhead))
+    load = sum_load / <span style="color: rgb(0, 0, 255);">len</span>(model.results.processors)
+    overhead = sum_overhead / <span style="color: rgb(0, 0, 255);">len</span>(model.results.processors)
+    arq8.write(&quot;<span style="color: rgb(0, 0, 255);">\n</span> %<span style="color: rgb(0, 128, 0);">.6f %.6f</span>&quot; % (load, <span style="color: rgb(0, 0, 255);">1</span>-load))
+    arq6.close()
+
+main(sys.argv)</pre>
