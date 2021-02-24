@@ -125,15 +125,23 @@
 <br>arq.write("\n" + 8 * x + "configuration.scheduler_info.clas = \"simso.schedulers.EDF_LQ\"")</span>
 <p>For a more detailed version of this script, which highlights the sections that need to be edited, readers can consult <a href="input-taskset.html">input-taskset.html"</a> file, which shows in red which parts of the file need to be edited so that the script run.</p>
 <p><span style="text-decoration: underline;">Important variables in the task set generator script:</span></p>
-        nbperiodic: defines the number of hard sporadic tasks in the generated task set;<br>
-        nbaperiodic: defines the number of soft aperiodic tasks in the generated task set;<br>
-        up: utilization of hard sporadic tasks. In our simulation we fixed hard tasks utilization in 80%<br>
-        ua: utilization of soft aperiodic tasks. In our simulation, soft tasks utilization varies in four ranges: 25%, 50%, 75% and 100% of the available slack we fixed hard tasks utilization in 80%<br>
-        nsets: number of task sets to be generated<br>
-        min: lower bound of the loguniform distribution<br>
-        max: upper bound of the log uniform distribution<br>
-        simulation_duration: duration of the simulation in <span style="font-family: courier new;font-size: 14px;">Simso</span> (counted in ms)<br>
+<ul>
+   <li><strong> nbperiodic</strong>: defines the number of hard sporadic tasks in the generated task set;</li>
+   <li><strong> nbaperiodic</strong>: defines the number of soft aperiodic tasks in the generated task set;</li>
+   <li><strong> up</strong>: utilization of hard sporadic tasks. In our simulation we fixed hard tasks utilization in 80%;</li>
+   <li><strong> ua</strong>: utilization of soft aperiodic tasks. In our simulation, soft tasks utilization varies in four ranges: 25%, 50%, 75% and 100% of the available slack we fixed hard tasks utilization in 80%;</li>
+   <li><strong> nsets</strong>: number of task sets to be generated;</li>
+   <li><strong> min</strong>: lower bound of the loguniform distribution</li>
+   <li><strong> max</strong>: upper bound of the log uniform distribution</li>
+   <li><strong> simulation_duration</strong>: duration of the simulation in <span style="font-family: courier new;font-size: 14px;">Simso</span> (counted in ms)</li>
+   <li><strong>arq</strong>: corresponds to the full path of the output file;</li>
+</ul>
+The following lines should also be adjusted:<br>
+<span style="font-family: courier new;font-size: 14px;">arq.write("\n" + 8 * x + "configuration.add_processor(name=\"CPU 1\", identifier=1)")</span><br>
 
+which defines the number of CPUs. For each CPU one line similar to this must be added to the script file, changin the CPU name and the identifier. Also, the scheduler 
+name must be adjusted to run <strong>EDF-LQ</strong> or <strong>EDF-GQ</strong>.
+<span style="font-family: courier new;font-size: 14px;">"simso.schedulers.EDF_LQ"</span><br>
 <h4>Input Task set File:</h4>
 <br>
 <!-- USING ARTFACT FILES -->
