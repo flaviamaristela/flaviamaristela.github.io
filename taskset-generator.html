@@ -51,21 +51,20 @@ r = randint(<span style="color: #0000ff;">1</span>, (naperiodicas + nperiodicas)
     rand_vector.append(r)
     for t in range(0, len(tperiodicas[<span style="color: #0000ff;">0</span>]) + len(taperiodicas[<span style="color: #0000ff;">0</span>])):                
        if rand_vector[t] &lt;= nperiodicas:                   
-          arq.write("\n" + 8 * x + "<span style="color: #008000;">configuration.add_task(name=\"Task</span>" + str(rand_vector[t]) +<br />"\"<span style="color: #008000;">, identifier=</span>" + str(rand_vector[t]) + "<span style="color: #008000;">, period=</span>" +                              
-          str(tsetsP[i][rand_vector[t] - <span style="color: #0000ff;">1</span>][<span style="color: #0000ff;">1</span>]) +<br />                              "<span style="color: #008000;">, activation_date=0, abort_on_miss=True, task_type=\"Periodic\", wcet=</span>" +
+          arq.write("\n" + 8 * x + "<span style="color: #008000;">configuration.add_task(name=\"Task</span>" + str(rand_vector[t]) +"\"<span style="color: #008000;">, identifier=</span>" + str(rand_vector[t]) + "<span style="color: #008000;">, period=</span>" +                              
+          str(tsetsP[i][rand_vector[t] - <span style="color: #0000ff;">1</span>][<span style="color: #0000ff;">1</span>]) + "<span style="color: #008000;">, activation_date=0, abort_on_miss=True, task_type=\"Periodic\", wcet=</span>" +
           str(tsetsP[i][rand_vector[t] - <span style="color: #0000ff;">1</span>][<span style="color: #0000ff;">0</span>]) + "<span style="color: #008000;">, acet=</span>" +
           str(tsetsP[i][rand_vector[t] - <span style="color: #0000ff;">1</span>][<span style="color: #0000ff;">0</span>]) + "<span style="color: #008000;">, et_stddev=</span>" +                              
           str((tsetsP[i][rand_vector[t] - <span style="color: #0000ff;">1</span>][<span style="color: #0000ff;">0</span>]) / <span style="color: #0000ff;">3</span>) +
           "<span style="color: #008000;">, deadline=</span> " + str(randint(math.ceil(tsetsP[i][rand_vector[t] - <span style="color: #0000ff;">1</span>][<span style="color: #0000ff;">0</span>]), <span style="color: #0000ff;">2</span> * tsetsP[i][rand_vector[t] - <span style="color: #0000ff;">1</span>][<span style="color: #0000ff;">1</span>])) + "<span style="color: #008000;">)</span>")
       else:                    
-         dates = task_generator.gen_arrivals(tsetsA[i][rand_vector[t] - nperiodicas - <span style="color: #0000ff;">1</span>][<span style="color: #0000ff;">1</span>], <span style="color: #0000ff;">1</span>, <span style="color: #0000ff;">2000</span>,<br />                                                        
-         <span style="color: #800080;">round_to_int</span>=<span style="color: #0000ff;">True</span>)<br />                    
-         ativacao = str(dates)<br />                    ativacao = ativacao.replace("<span style="color: #008000;">[</span>", '')<br />                    
-         ativacao = ativacao.replace("<span style="color: #008000;">]</span>", '')<br />                    
-         arq.write("\n" + 8 * x + "<span style="color: #008000;">configuration.add_task(name=\"Task</span>" + str(rand_vector[t]) +<br />                              
-         "\"<span style="color: #008000;">, identifier=</span>" + str(rand_vector[t]) + "<span style="color: #008000;">, period=</span>" +<br /> 
-         str(tsetsA[i][rand_vector[t] - nperiodicas - 1][1]) +<br />                              
-         "<span style="color: #008000;">, activation_date=0, abort_on_miss=False, task_type=\"Sporadic\", wcet=</span>" +<br />
+         dates = task_generator.gen_arrivals(tsetsA[i][rand_vector[t] - nperiodicas - <span style="color: #0000ff;">1</span>][<span style="color: #0000ff;">1</span>], <span style="color: #0000ff;">1</span>, <span style="color: #0000ff;">2000</span>,<span style="color: #800080;">round_to_int</span>=<span style="color: #0000ff;">True</span>)                 
+         ativacao = str(dates)ativacao = ativacao.replace("<span style="color: #008000;">[</span>", '')                    
+         ativacao = ativacao.replace("<span style="color: #008000;">]</span>", '')                   
+         arq.write("\n" + 8 * x + "<span style="color: #008000;">configuration.add_task(name=\"Task</span>" + str(rand_vector[t]) +                            
+         "\"<span style="color: #008000;">, identifier=</span>" + str(rand_vector[t]) + "<span style="color: #008000;">, period=</span>" + 
+         str(tsetsA[i][rand_vector[t] - nperiodicas - 1][1]) +                              
+         "<span style="color: #008000;">, activation_date=0, abort_on_miss=False, task_type=\"Sporadic\", wcet=</span>" +
          str(math.ceil(tsetsA[i][rand_vector[t] - nperiodicas - <span style="color: #0000ff;">1</span>][<span style="color: #0000ff;">0</span>])) + "<span style="color: #008000;">, acet=</span>" +
          str(tsetsA[i][rand_vector[t] - nperiodicas - <span style="color: #0000ff;">1</span>][<span style="color: #0000ff;">0</span>]) + "<span style="color: #008000;">, et_stddev=</span>" +
          str((tsetsA[i][rand_vector[t] - nperiodicas - <span style="color: #0000ff;">1</span>][<span style="color: #0000ff;">0</span>]) / <span style="color: #0000ff;">3</span>) +
@@ -79,12 +78,11 @@ r = randint(<span style="color: #0000ff;">1</span>, (naperiodicas + nperiodicas)
   arq.write("\n" + <span style="color: #0000ff;">8</span> * x + "<span style="color: #008000;">configuration.add_processor(name=\"CPU 4\", identifier=4)</span>")
 
   arq.write("\n\n" + <span style="color: #0000ff;">8</span> * x + "<span style="color: #008000;"># Add a scheduler:</span>")<br />            
-  arq.write("\n" + <span style="color: #0000ff;">8</span> * x + "<span style="color: #008000;"># configuration.scheduler_info.filename = \"C:\\Users\\Fl&aacute;via\\Documents\\Doutorado\\Simulador\\simso\\simso-0.8.5\\simso\\schedulers\\EDF_LQ.py\"</span>")<br />            
-  arq.write("\n" + <span style="color: #0000ff;">8</span> * x + "<span style="color: #008000;">configuration.scheduler_info.clas = \"simso.schedulers.EDF_LQ\"</span>")<br /><br />            
+  arq.write("\n" + <span style="color: #0000ff;">8</span> * x + "<span style="color: #008000;">configuration.scheduler_info.clas = \"simso.schedulers.EDF_LQ\"</span>")
   arq.write("\n\n" + <span style="color: #0000ff;">4</span> * x + "<span style="color: #008000;"># Check the config before trying to run it.</span>")           
   arq.write("\n" + <span style="color: #0000ff;">4</span> * x + "<span style="color: #008000;">configuration.check_all()</span>")
   
-  arq.write("\n\n" + <span style="color: #0000ff;">4</span> * x + "<span style="color: #008000;"># &nbsp;Init a model from the configuration.</span>")            
+  arq.write("\n\n" + <span style="color: #0000ff;">4</span> * x + "<span style="color: #008000;"># Init a model from the configuration.</span>")            
   arq.write("\n" + <span style="color: #0000ff;">4</span> * x + "<span style="color: #008000;">model = Model(configuration)</span>")
   
   arq.write("\n\n" + <span style="color: #0000ff;">4</span> * x + "<span style="color: #008000;"># Execute the simulation.</span>")           
@@ -112,16 +110,18 @@ r = randint(<span style="color: #0000ff;">1</span>, (naperiodicas + nperiodicas)
   arq.write("\n" + <span style="color: #0000ff;">4</span> * x + "<span style="color: #008000;">arq2.write(\"\\n%d %d\" % (cont_terminated, cont_aborted))</span>")
   arq.write("\n" + <span style="color: #0000ff;">4</span> * x + "<span style="color: #008000;">arq2.close()</span>")
   
-  arq.write("\n\n" + <span style="color: #0000ff;">4</span> * x + "<span style="color: #008000;"># Print average response time log file.</span>")<br />
-  arq.write("\n" + <span style="color: #0000ff;">4</span> * x + "<span style="color: #008000;">print(\"Imprimindo Arquivo de Log ** RESPONSE TIME AND TARDINESS **\")</span>")<br />
-  arq.write("\n\n" + <span style="color: #0000ff;">4</span> * x + "<span style="color: #008000;">arq3 = open(\"C:\\log\\log_avg_response_time.txt\", \"a\")</span>")<br />
-  arq.write("\n" + <span style="color: #0000ff;">4</span> * x + "<span style="color: #008000;">arq3.write(\"\\n\" + \"CONJUNTO\" + \"" + str(i + 1) + "\")</span>")<br /><br />            
-  arq.write("\n\n" + <span style="color: #0000ff;">4</span> * x + "<span style="color: #008000;"># Print tardiness log file.</span>")<br />            
-  arq.write("\n" + <span style="color: #0000ff;">4</span> * x + "<span style="color: #008000;">arq4 = open(\"C:\\log\\log_tardiness.txt\", \"a\")</span>")<br /> 
-  arq.write("\n" + <span style="color: #0000ff;">4</span> * x + "<span style="color: #008000;">arq4.write(\"\\n\" + \"CONJUNTO\" + \"" + str(i + 1) + "\")</span>")<br /><br />
-  arq.write("\n\n" + <span style="color: #0000ff;">4</span> * x + "<span style="color: #008000;"># Print number of jobs log file.</span>")<br /> 
-  arq.write("\n" + <span style="color: #0000ff;">4</span> * x + "<span style="color: #008000;">print(\"Imprimindo Arquivo de Log ** NUMBER OF JOBS (Executed vs. Missed) **\")</span>")<br /> 
-  arq.write("\n" + <span style="color: #0000ff;">4</span> * x + "<span style="color: #008000;">arq7 = open(\"C:\\log\\log_number_jobs.txt\", \"a\")</span>")<br />
+  arq.write("\n\n" + <span style="color: #0000ff;">4</span> * x + "<span style="color: #008000;"># Print average response time log file.</span>")
+  arq.write("\n" + <span style="color: #0000ff;">4</span> * x + "<span style="color: #008000;">print(\"Imprimindo Arquivo de Log ** RESPONSE TIME AND TARDINESS **\")</span>")
+  arq.write("\n\n" + <span style="color: #0000ff;">4</span> * x + "<span style="color: #008000;">arq3 = open(\"C:\\log\\log_avg_response_time.txt\", \"a\")</span>")
+  arq.write("\n" + <span style="color: #0000ff;">4</span> * x + "<span style="color: #008000;">arq3.write(\"\\n\" + \"CONJUNTO\" + \"" + str(i + 1) + "\")</span>")
+  
+  arq.write("\n\n" + <span style="color: #0000ff;">4</span> * x + "<span style="color: #008000;"># Print tardiness log file.</span>")            
+  arq.write("\n" + <span style="color: #0000ff;">4</span> * x + "<span style="color: #008000;">arq4 = open(\"C:\\log\\log_tardiness.txt\", \"a\")</span>") 
+  arq.write("\n" + <span style="color: #0000ff;">4</span> * x + "<span style="color: #008000;">arq4.write(\"\\n\" + \"CONJUNTO\" + \"" + str(i + 1) + "\")</span>")
+  
+  arq.write("\n\n" + <span style="color: #0000ff;">4</span> * x + "<span style="color: #008000;"># Print number of jobs log file.</span>"
+  arq.write("\n" + <span style="color: #0000ff;">4</span> * x + "<span style="color: #008000;">print(\"Imprimindo Arquivo de Log ** NUMBER OF JOBS (Executed vs. Missed) **\")</span>")
+  arq.write("\n" + <span style="color: #0000ff;">4</span> * x + "<span style="color: #008000;">arq7 = open(\"C:\\log\\log_number_jobs.txt\", \"a\")</span>")
   
   arq.write("\n" + 4 * x + "<span style="color: #008000;">arq7.write(\"\\n\" + \"CONJUNTO\" + \"" + str(i + 1) + "\")</span>")
   
