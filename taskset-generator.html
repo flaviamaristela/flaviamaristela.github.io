@@ -1,0 +1,204 @@
+import sys
+import math
+
+from simso.generator import task_generator
+from random import randint
+
+class script:
+    def saida(self):
+        nperiodicas = 6
+        naperiodicas = 6
+        up = 3.2
+        ua = 0.2
+        nsets = 300
+        min = 1
+        max = 50
+        simulation_duration = 2000
+        x = " "
+
+        uperiodicas = task_generator.UUniFastDiscard(nperiodicas, up, nsets)
+        uaperiodicas = task_generator.UUniFastDiscard(naperiodicas, ua, nsets)
+        tperiodicas = task_generator.gen_periods_loguniform(nperiodicas, nsets, min, max, round_to_int=True)
+        taperiodicas = task_generator.gen_periods_loguniform(naperiodicas, nsets, min, max, round_to_int=True)
+
+        arq = open("c:\\Users\\Flávia\\Documents\\Doutorado\Simulador\simso\\simso-0.8.5\\arbitrary-deadline-4p-25s.py", "w")
+
+        for i in range(0, nsets):
+            tsetsP = task_generator.gen_tasksets(uperiodicas, tperiodicas)
+            tsetsA = task_generator.gen_tasksets(uaperiodicas, taperiodicas)
+
+            # Cabecalho do arquivo
+            arq.write("\n\nimport sys")
+            arq.write("\nfrom simso.core import Model")
+            arq.write("\nfrom simso.configuration import Configuration")
+            arq.write("\nfrom simso.core.Task import SporadicTask")
+
+            arq.write("\n\ndef main(argv):")
+            arq.write("\n" + 4 * x + "if len(argv) == 2:")
+            arq.write("\n" + 8 * x + "#  Configuration load from a file.")
+            arq.write("\n" + 8 * x + "configuration = Configuration(argv[1])")
+            arq.write("\n" + 4 * x + "else:")
+            arq.write("\n" + 8 * x + "# Manual configuration:")
+            arq.write("\n" + 8 * x + "configuration = Configuration()")
+            arq.write("\n" + 8 * x + "configuration.duration = " + str(simulation_duration) + " * configuration.cycles_per_ms")
+            arq.write("\n" + 8 * x + "configuration.etm = \"acet\"")
+            arq.write("\n" + 8 * x + "#  Add tasks:")
+
+            rand_vector = []
+            while len(rand_vector) != (naperiodicas + nperiodicas):
+                r = randint(1, (naperiodicas + nperiodicas))
+                if r not in rand_vector:
+                    rand_vector.append(r)
+
+            for t in range(0, len(tperiodicas[0]) + len(taperiodicas[0])):
+                if rand_vector[t] <= nperiodicas:
+                    arq.write("\n" + 8 * x + "configuration.add_task(name=\"Task" + str(rand_vector[t]) +
+                              "\", identifier=" + str(rand_vector[t]) + ", period=" +
+                              str(tsetsP[i][rand_vector[t] - 1][1]) +
+                              ", activation_date=0, abort_on_miss=True, task_type=\"Periodic\", wcet=" +
+                              str(tsetsP[i][rand_vector[t] - 1][0]) + ", acet=" +
+                              str(tsetsP[i][rand_vector[t] - 1][0]) + ", et_stddev=" +
+                              str((tsetsP[i][rand_vector[t] - 1][0]) / 3) +
+                              ", deadline= " + str(randint(math.ceil(tsetsP[i][rand_vector[t] - 1][0]), 2 * tsetsP[i][rand_vector[t] - 1][1])) + ")")
+                else:
+                    dates = task_generator.gen_arrivals(tsetsA[i][rand_vector[t] - nperiodicas - 1][1], 1, 2000,
+                                                        round_to_int=True)
+                    ativacao = str(dates)
+                    ativacao = ativacao.replace("[", '')
+                    ativacao = ativacao.replace("]", '')
+                    arq.write("\n" + 8 * x + "configuration.add_task(name=\"Task" + str(rand_vector[t]) +
+                              "\", identifier=" + str(rand_vector[t]) + ", period=" +
+                              str(tsetsA[i][rand_vector[t] - nperiodicas - 1][1]) +
+                              ", activation_date=0, abort_on_miss=False, task_type=\"Sporadic\", wcet=" +
+                              str(math.ceil(tsetsA[i][rand_vector[t] - nperiodicas - 1][0])) + ", acet=" +
+                              str(tsetsA[i][rand_vector[t] - nperiodicas - 1][0]) + ", et_stddev=" +
+                              str((tsetsA[i][rand_vector[t] - nperiodicas - 1][0]) / 3) +
+                              " , list_activation_dates=[" + ativacao + "], deadline = " +
+                              str(randint(math.ceil(tsetsA[i][rand_vector[t] - nperiodicas - 1][0]), 2 * tsetsA[i][rand_vector[t] - nperiodicas - 1][1])) + ")")
+
+            arq.write("\n\n" + 8 * x + "#  Add a processor:")
+            arq.write("\n" + 8 * x + "configuration.add_processor(name=\"CPU 1\", identifier=1)")
+            arq.write("\n" + 8 * x + "configuration.add_processor(name=\"CPU 2\", identifier=2)")
+            arq.write("\n" + 8 * x + "configuration.add_processor(name=\"CPU 3\", identifier=3)")
+            arq.write("\n" + 8 * x + "configuration.add_processor(name=\"CPU 4\", identifier=4)")
+            
+            arq.write("\n\n" + 8 * x + "# Add a scheduler:")
+            arq.write(
+                "\n" + 8 * x + "# configuration.scheduler_info.filename = \"C:\\Users\\Flávia\\Documents\\Doutorado\\Simulador\\simso\\simso-0.8.5\\simso\\schedulers\\EDF_LQ.py\"")
+            arq.write("\n" + 8 * x + "configuration.scheduler_info.clas = \"simso.schedulers.EDF_LQ\"")
+
+            arq.write("\n\n" + 4 * x + "# Check the config before trying to run it.")
+            arq.write("\n" + 4 * x + "configuration.check_all()")
+
+            arq.write("\n\n" + 4 * x + "#  Init a model from the configuration.")
+            arq.write("\n" + 4 * x + "model = Model(configuration)")
+
+            arq.write("\n\n" + 4 * x + "# Execute the simulation.")
+            arq.write("\n" + 4 * x + "try:")
+            arq.write("\n" + 8 * x + "model.run_model()")
+            arq.write("\n" + 4 * x + "except SystemExit as e:")
+            arq.write("\n" + 8 * x + "arqE = open(\"C:\\log\\log_erro.txt\", \"a\")")
+            arq.write("\n" + 8 * x + "arqE.write(\"\\n\" + \"CONJUNTO\" + \"" + str(i + 1) + "\")")
+            arq.write("\n" + 8 * x + "arqE.write(\"\\n\" + str(e))")
+            arq.write("\n" + 8 * x + "arqE.close()")
+            arq.write("\n" + 8 * x + "return()")
+
+            arq.write("\n\n" + 4 * x + "# Print Terminated vs Aborted log file")
+            arq.write("\n" + 4 * x + "print(\"Imprimindo Arquivo de Log ** TERMINATED vs. ABORTED TASKS **\")")
+            arq.write("\n" + 4 * x + "cont_terminated = 0")
+            arq.write("\n" + 4 * x + "cont_aborted = 0")
+            arq.write("\n\n" + 4 * x + "for log in model.logs:")
+            arq.write("\n" + 8 * x + "if str(log).find(\"Terminated\") > 0:")
+            arq.write("\n" + 12 * x + "cont_terminated = cont_terminated + 1")
+            arq.write("\n" + 8 * x + "if str(log).find(\"aborted\") > 0:")
+            arq.write("\n" + 12 * x + "if float(str(log).partition(\":\")[2].partition(\"'\")[0]) > 0.00001:")
+            arq.write("\n" + 16 * x + "cont_aborted = cont_aborted + 1")
+            arq.write("\n" + 4 * x + "arq2 = open(\"C:\\log\\log_aborted_terminated.txt\", \"a\")")
+            arq.write("\n" + 4 * x + "arq2.write(\"\\n\" + \"CONJUNTO\" + \"" + str(i + 1) + "\")")
+            arq.write("\n" + 4 * x + "arq2.write(\"\\n%d %d\" % (cont_terminated, cont_aborted))")
+            arq.write("\n" + 4 * x + "arq2.close()")
+
+            arq.write("\n\n" + 4 * x + "# Print average response time log file.")
+            arq.write("\n" + 4 * x + "print(\"Imprimindo Arquivo de Log ** RESPONSE TIME AND TARDINESS **\")")
+            arq.write("\n\n" + 4 * x + "arq3 = open(\"C:\\log\\log_avg_response_time.txt\", \"a\")")
+            #            arq.write("\n" + 4*x + "arq3.write(\"\\n\" + \"==================\")")
+            arq.write("\n" + 4 * x + "arq3.write(\"\\n\" + \"CONJUNTO\" + \"" + str(i + 1) + "\")")
+
+            arq.write("\n\n" + 4 * x + "# Print tardiness log file.")
+            arq.write("\n" + 4 * x + "arq4 = open(\"C:\\log\\log_tardiness.txt\", \"a\")")
+            #            arq.write("\n" + 4*x + "arq4.write(\"\\n\" + \"==================\")")
+            arq.write("\n" + 4 * x + "arq4.write(\"\\n\" + \"CONJUNTO\" + \"" + str(i + 1) + "\")")
+
+            arq.write("\n\n" + 4 * x + "# Print number of jobs log file.")
+            arq.write("\n" + 4 * x + "print(\"Imprimindo Arquivo de Log ** NUMBER OF JOBS (Executed vs. Missed) **\")")
+            arq.write("\n" + 4 * x + "arq7 = open(\"C:\\log\\log_number_jobs.txt\", \"a\")")
+            #            arq.write("\n" + 4*x + "arq7.write(\"\\n\" + \"==================\")")
+            arq.write("\n" + 4 * x + "arq7.write(\"\\n\" + \"CONJUNTO\" + \"" + str(i + 1) + "\")")
+
+            arq.write("\n" + 4 * x + "for task in model.results.tasks:")
+            arq.write("\n" + 8 * x + "cont = 0")
+            arq.write("\n" + 8 * x + "total_response_time = 0")
+            arq.write("\n" + 8 * x + "tardiness = 0")
+            arq.write("\n" + 8 * x + "jobs_deadline_miss = 0")
+            arq.write("\n" + 8 * x + "for job in task.jobs:")
+            arq.write("\n" + 12 * x + "if isinstance(job.task, SporadicTask) and job.end_date is not None:")
+            arq.write("\n" + 16 * x + "if (job.end_date/1000000) - job.absolute_deadline <= 0:")
+            arq.write("\n" + 20 * x + "tardiness = 0")
+            arq.write("\n" + 16 * x + "else:")
+            arq.write("\n" + 20 * x + "tardiness = (job.end_date/1000000) - job.absolute_deadline")
+            arq.write("\n" + 20 * x + "jobs_deadline_miss = jobs_deadline_miss + 1")
+            arq.write("\n" + 16 * x + "if tardiness > 0:")
+            arq.write(
+                "\n" + 20 * x + "arq4.write(\"\\n%s %s %.6f ms %.6f ms %.6f ms\" % (task.name, job.name, job.absolute_deadline, job.end_date/1000000, tardiness))")
+            arq.write("\n" + 12 * x + "if (job.response_time is not None):")
+            arq.write("\n" + 16 * x + "total_response_time = total_response_time + (job.response_time/job.deadline)")
+            arq.write("\n" + 16 * x + "cont = cont + 1")
+            arq.write("\n" + 8 * x + "if cont > 0:")
+            arq.write(
+                "\n" + 12 * x + "arq3.write(\"\\n%s %.6f %d %.6f \" % (task.name, total_response_time/cont, task._job_count, total_response_time))")
+            arq.write(
+                "\n" + 12 * x + "arq7.write(\"\\n%s %d %d %d \" % (task.name, cont, jobs_deadline_miss, cont+jobs_deadline_miss ))")
+            arq.write("\n" + 4 * x + "arq3.close()")
+            arq.write("\n" + 4 * x + "arq4.close()")
+            arq.write("\n" + 4 * x + "arq7.close()")
+
+            arq.write("\n\n" + 4 * x + "# Print preemption and migration log file.")
+            arq.write("\n" + 4 * x + "print(\"Imprimindo Arquivo de Log ** PREEMPTION AND MIGRATION **\")")
+            arq.write("\n" + 4 * x + "arq5 = open(\"C:\\log\\log_preemption_migration.txt\", \"a\")")
+            #            arq.write("\n" + 4*x + "arq5.write(\"\\n\" + \"==================\")")
+            arq.write("\n" + 4 * x + "arq5.write(\"\\n\" + \"CONJUNTO\" + \"" + str(i + 1) + "\")")
+            arq.write("\n" + 4 * x + "for task in model.results.tasks.values():")
+            arq.write(
+                "\n" + 8 * x + "arq5.write(\"\\n%s %d %d\" % (task.name, task.preemption_count, task.migration_count))")
+            arq.write("\n" + 4 * x + "arq5.close()")
+
+            arq.write("\n\n" + 4 * x + "# Print processor_load log file.")
+            arq.write("\n" + 4 * x + "print(\"Imprimindo Arquivo de Log ** PROCESSOR LOAD FILE **\")")
+            arq.write("\n" + 4 * x + "arq6 = open(\"C:\\log\\log_processor_load.txt\", \"a\")")
+            #            arq.write("\n" + 4*x + "arq6.write(\"\\n\" + \"==================\")")
+            arq.write("\n" + 4 * x + "arq6.write(\"\\n\" + \"CONJUNTO\" + \"" + str(i + 1) + "\")")
+
+            arq.write("\n" + 4 * x + "arq8 = open(\"C:\\log\\log_average_load_slack.txt\", \"a\")")
+            arq.write("\n" + 4 * x + "arq8.write(\"\\n\" + \"CONJUNTO\" + \"" + str(i + 1) + "\")")
+
+            arq.write("\n" + 4 * x + "sum_load = 0")
+            arq.write("\n" + 4 * x + "sum_overhead = 0")
+            arq.write("\n" + 4 * x + "for processor, load, overhead in model.results.calc_load():")
+            arq.write("\n" + 8 * x + "sum_load += load")
+            arq.write("\n" + 8 * x + "sum_overhead += overhead")
+            arq.write(
+                "\n" + 8 * x + "arq6.write(\"\\n%s %.6f %.6f %.6f ms\" % (processor.name, load + overhead, load, overhead))")
+            arq.write("\n" + 4 * x + "load = sum_load / len(model.results.processors)")
+            arq.write("\n" + 4 * x + "overhead = sum_overhead / len(model.results.processors)")
+            arq.write("\n" + 4 * x + "arq8.write(\"\\n %.6f %.6f %.6f\" % (load, 1-load))")
+
+            #            arq.write("\n" + 4 * x + "arq6.write(\"\\n Perc.SlackUtil.(aperiodic): %.6f ms\" % (0.100000 - (1 - load)))")
+            arq.write("\n" + 4 * x + "arq6.close()")
+
+            arq.write("\n\nmain(sys.argv)")
+
+        arq.close()
+
+
+s = script()
+s.saida()
