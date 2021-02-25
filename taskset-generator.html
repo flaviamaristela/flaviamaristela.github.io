@@ -1,50 +1,48 @@
 <a href="index.html">VOLTAR</a>
 
 <pre>
-<span style="color: #0000ff;">import</span> sys<br />
-<span style="color: #0000ff;">import</span> math<br /><br />
-<span style="color: #0000ff;">from</span> simso.generator 
-<span style="color: #0000ff;">import</span> task_generator<br />
-<span style="color: #0000ff;">from</span> random 
-<span style="color: #0000ff;">import</span> randint<br /><br />
+<span style="color: #0000ff;">import</span> sys<br>
+<span style="color: #0000ff;">import</span> math<br><br />
+<span style="color: #0000ff;">from</span> simso.generator <span style="color: #0000ff;">import</span> task_generator<br>
+<span style="color: #0000ff;">from</span> random <span style="color: #0000ff;">import</span> randint<br /><br>
 
-<span style="color: #0000ff;">class</span> script:<br />    
-<span style="color: #0000ff;">def</span> saida(self):<br />        
-nperiodicas = <span style="color: #0000ff;">6</span><br />        
-naperiodicas = <span style="color: #0000ff;">6</span><br />        
-up = <span style="color: #0000ff;">3.2</span><br />        
-ua = <span style="color: #0000ff;">0.2</span><br />        
-nsets = <span style="color: #0000ff;">300</span><br />        
-min = <span style="color: #0000ff;">1</span><br />        
-max = <span style="color: #0000ff;">50</span><br />        
-simulation_duration = <span style="color: #0000ff;">2000</span><br />        
-x = " "<br /><br />        
+<span style="color: #0000ff;">class</span> script:<br>    
+<span style="color: #0000ff;">def</span> saida(self):<br>        
+nperiodicas = <span style="color: #0000ff;">6</span><br>        
+naperiodicas = <span style="color: #0000ff;">6</span><br>        
+up = <span style="color: #0000ff;">3.2</span><br>        
+ua = <span style="color: #0000ff;">0.2</span><br>        
+nsets = <span style="color: #0000ff;">300</span><br>        
+min = <span style="color: #0000ff;">1</span><br>        
+max = <span style="color: #0000ff;">50</span><br>        
+simulation_duration = <span style="color: #0000ff;">2000</span><br>        
+x = " "<br><br>        
 
-uperiodicas = task_generator.UUniFastDiscard(nperiodicas, up, nsets)<br />        
-uaperiodicas = task_generator.UUniFastDiscard(naperiodicas, ua, nsets)<br />        
-tperiodicas = task_generator.gen_periods_loguniform(nperiodicas, nsets, min, max, round_to_int=True)<br />        
-taperiodicas = task_generator.gen_periods_loguniform(naperiodicas, nsets, min, max, round_to_int=True)<br /><br />        
+uperiodicas = task_generator.UUniFastDiscard(nperiodicas, up, nsets)<br>        
+uaperiodicas = task_generator.UUniFastDiscard(naperiodicas, ua, nsets)<br>        
+tperiodicas = task_generator.gen_periods_loguniform(nperiodicas, nsets, min, max, round_to_int=True)<br>        
+taperiodicas = task_generator.gen_periods_loguniform(naperiodicas, nsets, min, max, round_to_int=True)<br><br>        
 
-arq = open("c:\\Users\\Fl&aacute;via\\Documents\\Doutorado\Simulador\simso\\simso-0.8.5\\arbitrary-deadline-4p-25s.py", "w")<br /><br />        
-<span style="color: #0000ff;">for</span> i <span style="color: #0000ff;">in</span> range(0, nsets):<br />            
-tsetsP = task_generator.gen_tasksets(uperiodicas, tperiodicas)<br />            
-tsetsA = task_generator.gen_tasksets(uaperiodicas, taperiodicas)<br /><br />            
+arq = open("... full path of the outút file!", "w")<br /><br>        
+<span style="color: #0000ff;">for</span> i <span style="color: #0000ff;">in</span> range(0, nsets):<br>            
+tsetsP = task_generator.gen_tasksets(uperiodicas, tperiodicas)<br>            
+tsetsA = task_generator.gen_tasksets(uaperiodicas, taperiodicas)<br><br>            
 
-# Cabecalho do arquivo<br />            
-arq.write("<span style="color: #0000ff;">\n\n</span><span style="color: #008000;">import sys</span>")<br />            
-arq.write("<span style="color: #0000ff;">\n</span><span style="color: #008000;">from simso.core import Model</span>")<br />            
-arq.write("<span style="color: #0000ff;">\n</span><span style="color: #008000;">from simso.configuration import Configuration</span>")<br />            
-arq.write("<span style="color: #0000ff;">\n</span><span style="color: #008000;">from simso.core.Task import SporadicTask</span>")<br /><br />            
-arq.write("<span style="color: #0000ff;">\n\n</span><span style="color: #008000;">def main(argv):</span>")<br />            
-arq.write("<span style="color: #0000ff;">\n</span>" + <span style="color: #0000ff;">4</span> * x + "<span style="color: #008000;">if len(argv) == 2:</span>")<br />  
-arq.write("<span style="color: #0000ff;">\n</span>" + <span style="color: #0000ff;">8</span> * x + "<span style="color: #008000;"># &nbsp;Configuration load from a file.</span>")<br />            
+# Cabecalho do arquivo<br>            
+arq.write("<span style="color: #0000ff;">\n\n</span><span style="color: #008000;">import sys</span>")<br>            
+arq.write("<span style="color: #0000ff;">\n</span><span style="color: #008000;">from simso.core import Model</span>")<br>            
+arq.write("<span style="color: #0000ff;">\n</span><span style="color: #008000;">from simso.configuration import Configuration</span>")<br>            
+arq.write("<span style="color: #0000ff;">\n</span><span style="color: #008000;">from simso.core.Task import SporadicTask</span>")<br /><br>            
+arq.write("<span style="color: #0000ff;">\n\n</span><span style="color: #008000;">def main(argv):</span>")<br>            
+arq.write("<span style="color: #0000ff;">\n</span>" + <span style="color: #0000ff;">4</span> * x + "<span style="color: #008000;">if len(argv) == 2:</span>")<br>  
+arq.write("<span style="color: #0000ff;">\n</span>" + <span style="color: #0000ff;">8</span> * x + "<span style="color: #008000;"># Configuration load from a file.</span>")<br />            
 arq.write("<span style="color: #0000ff;">\n</span>" + <span style="color: #0000ff;">8</span> * x + "<span style="color: #008000;">configuration = Configuration(argv[1])</span>")<br />            
-arq.write("<span style="color: #0000ff;">\n</span>" + <span style="color: #0000ff;">4</span> * x + "<span style="color: #008000;">else:</span>")<br /> 
-arq.write("<span style="color: #0000ff;">\n</span>" + <span style="color: #0000ff;">8</span> * x + "<span style="color: #008000;"># Manual configuration:</span>")<br />            
-arq.write("<span style="color: #0000ff;">\n</span>" + <span style="color: #0000ff;">8</span> * x + "<span style="color: #008000;">configuration = Configuration()</span>")<br />            
+arq.write("<span style="color: #0000ff;">\n</span>" + <span style="color: #0000ff;">4</span> * x + "<span style="color: #008000;">else:</span>")<br> 
+arq.write("<span style="color: #0000ff;">\n</span>" + <span style="color: #0000ff;">8</span> * x + "<span style="color: #008000;"># Manual configuration:</span>")<br>            
+arq.write("<span style="color: #0000ff;">\n</span>" + <span style="color: #0000ff;">8</span> * x + "<span style="color: #008000;">configuration = Configuration()</span>")<br>            
 arq.write("<span style="color: #0000ff;">\n</span>" + <span style="color: #0000ff;">8</span> * x + "<span style="color: #008000;">configuration.duration =</span> " + str(simulation_duration) + " <span style="color: #008000;">* configuration.cycles_per_ms</span>")<br />            
-arq.write("<span style="color: #0000ff;">\n</span>" + <span style="color: #0000ff;">8</span> * x + "<span style="color: #008000;">configuration.etm = \"acet\</span>"")<br />            
-arq.write("<span style="color: #0000ff;">\n</span>" + <span style="color: #0000ff;">8</span> * x + "<span style="color: #008000;"># &nbsp;Add tasks:</span>")<br /><br />            
+arq.write("<span style="color: #0000ff;">\n</span>" + <span style="color: #0000ff;">8</span> * x + "<span style="color: #008000;">configuration.etm = \"acet\</span>"")<br>            
+arq.write("<span style="color: #0000ff;">\n</span>" + <span style="color: #0000ff;">8</span> * x + "<span style="color: #008000;"># Add tasks:</span>")<br><br>            
 rand_vector = []<br />            
 
 <span style="color: #0000ff;">while</span> <span style="color: #0000ff;">len</span>(rand_vector) != (naperiodicas + nperiodicas):<br />                
