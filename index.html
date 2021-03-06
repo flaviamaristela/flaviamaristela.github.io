@@ -173,11 +173,11 @@ name must be adjusted to run <strong>EDF-LQ</strong> or <strong>EDF-GQ</strong>.
 <p>After Python and Simso are properly installed, the next step is to prepare Simso to run EDF-LQ and EDF-GQ. TO do so, it is necessary to copy these schedulers to the simso schedulers folder.</p>
 <ul>
 <li>Copy our scheduler files (<span style="color: #0000ff;">EDF-LQ.py</span> and <span style="color: #0000ff;">EDF-GQ.py</span>) into Simso scheduler folder: <span style="font-family: courier new; font-size: 16px;">simso\schedulers</span></li>
+<li>Customize and run <i>taskset-generator.py</i> script; </li>
+<li> Run the generated task set in EDF-LQ and EDF-GQ schedulers; </li>
+<li> Run the graphic generator script in R to generate the outputs graphics.</li>
 </ul>
-<p>Our package contains an input task set. However, we also include an script in Python we used to generate our simulation task sets according to our needs. This file is described bellow:</p>
-<ul>
-<li>Use the Microsoft Windows terminal to run the script: python taskset.py</li>
-</ul>
+<b>Important Note:</b> For each graph the script need to be properly customized for each file, as shown in the <i>example.zip</i> folder.
 
 	</body>
 </html>
