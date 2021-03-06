@@ -1,3 +1,6 @@
+<html>
+<body vlink="blue">
+
 <h4><!-- #######  YAY, I AM THE SOURCE EDITOR! #########--></h4>
 <h2 style="color: #5e9ca0;">Artifact Evaluation<span style="color: #2b2301;"> RTAS 2021</span></h2>
 <p>&nbsp;</p>
@@ -36,10 +39,28 @@
 <li>Quick guide for generating main results</li>
 </ol>
 <p><span style="background-color: #2b2301; color: #fff; display: inline-block; padding: 3px 10px; font-weight: bold; border-radius: 5px;">Artifact Package Content</span></p>
-<p>The submitted artifact package content is composed of three main files:<br><br>
+<p>The submitted artifact package content is composed of two zip files:</p>
+<ul>
+	<li> <a href="source.zip">source.zip</a> </li>
+	<li> <a href="example.zip">example.zip</a> </li>
+</ul>
+<p align="justify">The files in "source.zip" package are:
 <strong>EDF-LQ.py</strong>: corresponding to the implementation of EDF-LQ scheduling approach<br>
 <strong>EDF-GQ.py</strong>: corresponding to the implementation of EDF-GQ scheduling approach<br>
-<strong>taskset.py</strong>: input task set file<br><br></p>
+<strong>taskset-generator.py</strong>: input task set file<br><br></p>
+
+<p align="justify">In order to illustrate the framework through an illustrative example, we use "example.zip" package, whose main structure is composed of two main folders:
+<strong>input</strong>: contains some input task sets which can be used, with reduced task set sizes;
+<strong>output</strong>: contains the output for the proposed task sets.<br>
+</p>
+	
+<p align="justify">The <i>input</i> folder, contains 4 files named as for example <strong>input-file-25.py</strong>, which corresponds to 50 task sets generated in which hard
+sporadic tasks have 80% of processor utilization and soft aperiodic tasks have 25% of the the total slack, which means (5% of the processor utilization). Each one of this 
+files is run in both EDF-LQ and EDF-GQ.</p>
+
+<p align="justify">The <i>output</i> folder, contains the simulation results for each scenario, which are presented in subfolders, such as <strong>EDFLQ-25</strong>, corresponding 
+to the simulation results files of <i>input-file-25.py</i> simulated aaccording to <b>EDF-LQ.py</b>.</p>
+	
 <!-- DEVELOPMENT ENVIRONMENT -->
 <p><span style="background-color: #2b2301; color: #fff; display: inline-block; padding: 3px 10px; font-weight: bold; border-radius: 5px;">Development Environment and System Requirements</span></p>
 <p align="justify">The simulation procedure described in the paper <strong>Effectively Scheduling Hard and Soft Real-Time Tasks on Multiprocessors</strong> was carried out in 
@@ -156,3 +177,5 @@ name must be adjusted to run <strong>EDF-LQ</strong> or <strong>EDF-GQ</strong>.
 <li>Use the Microsoft Windows terminal to run the script: python taskset.py</li>
 </ul>
 
+	</body>
+</html>
