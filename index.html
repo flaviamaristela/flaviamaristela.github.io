@@ -45,6 +45,10 @@
 	<li> <a href="source.zip">source.zip</a> </li>
 	<li> <a href="example.zip">example.zip</a> </li>
 </ul>
+	
+Besides these folders, the file <i>example.zip</i> contains two files, namely <b>graph_script.txt</b> and <b>graph.eps</b>, which corresponds to the script for generating the graph
+and the generated graph file, respectively. 
+	
 <p align="justify">The files in <b>source.zip</b> package are:<br>
 <strong>EDF-LQ.py</strong>: corresponding to the implementation of EDF-LQ scheduling approach<br>
 	<strong>EDF_LQ_mono.py</strong> and <strong>EDF_LQ_Server.py</strong>: auxiliar files from the scheduler;<br>	
@@ -177,7 +181,9 @@ name must be adjusted to run <strong>EDF-LQ</strong> or <strong>EDF-GQ</strong>.
 <li> Run the generated task set in EDF-LQ and EDF-GQ schedulers; </li>
 <li> Run the graphic generator script in R to generate the outputs graphics.</li>
 </ul>
-<b>Important Note:</b> For each graph the script need to be properly customized for each file, as shown in the <i>example.zip</i> folder.
+<p align="justify><b>Important Note:</b> In our original simulation we used Microsoft Excel, to compute the average values of deadline miss ratio, response timee, preemption and migration, before
+generating the graphs in R. For lack of time, we did not generated a general script for all these parameters. Nonetheless, the R script in the <i>example.zip</i> package contains 
+a  the script that illustrates how this would work without Microsoft Excel.
 
 	</body>
 </html>
