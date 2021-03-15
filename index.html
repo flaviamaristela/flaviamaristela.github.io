@@ -34,10 +34,10 @@
 <ol>
 <li>Artifact Package Content</li>
 <li>Development Environment and System Requirements</li>
-<li>Installation Guide</li>
-<li>Input File</li>
-<li>OutPut Files</li>
-<li>Quick guide for generating main results</li>
+<li>Installation Guide - Microsoft Windows</li>
+<li>Artifact Package Files</li>
+<li> Using our atifact </li>
+<li>Quick guide for running the example script</li>
 </ol>
 <p><span style="background-color: #2b2301; color: #fff; display: inline-block; padding: 3px 10px; font-weight: bold; border-radius: 5px;">Artifact Package Content</span></p>
 <p>The submitted artifact package content is composed of two zip files:</p>
@@ -80,7 +80,7 @@ to the simulation results files of <i>input-file-25.py</i> simulated aaccording 
 <li>Developed scheduler source code: EDF-LQ, EDF-GQ</li>
 </ul>
 <!-- INSTRUCTIONS -->
-<p><span style="background-color: #2b2301; color: #fff; display: inline-block; padding: 3px 10px; font-weight: bold; border-radius: 5px;">Instructions ( -- Microsoft Windows --)</span></p>
+<p><span style="background-color: #2b2301; color: #fff; display: inline-block; padding: 3px 10px; font-weight: bold; border-radius: 5px;">Instalation Guide - Microsoft Windows</span></p>
 <h4>Installing Python</h4>
 <ul style="list-style-type: square;">
 <li>Download and install Python interpreter. Our tool was developed in Python 3.7, thus we suggest users adopt the same version;</li>
@@ -170,20 +170,28 @@ which defines the number of CPUs. For each CPU one line similar to this must be 
 name must be adjusted to run <strong>EDF-LQ</strong> or <strong>EDF-GQ</strong>.
 <span style="font-family: courier new;font-size: 14px;">"simso.schedulers.EDF_LQ"</span><br>
 <h4>Input Task set File:</h4>
-<br>
 <a href="input-taskset.html">Input taskset example</a>
 <!-- USING ARTFACT FILES -->
-<p><span style="background-color: #2b2301; color: #fff; display: inline-block; padding: 3px 10px; font-weight: bold; border-radius: 5px;">Using our artifact</span></p>
+<p><span style="background-color: #2b2301; color: #fff; display: inline-block; padding: 3px 10px; font-weight: bold; border-radius: 5px;">Using our artifact (general)</span></p>
 <p>After Python and Simso are properly installed, the next step is to prepare Simso to run EDF-LQ and EDF-GQ. TO do so, it is necessary to copy these schedulers to the simso schedulers folder.</p>
 <ul>
-<li>Copy our scheduler files (<span style="color: #0000ff;">EDF-LQ.py</span> and <span style="color: #0000ff;">EDF-GQ.py</span>) into Simso scheduler folder: <span style="font-family: courier new; font-size: 16px;">simso\schedulers</span></li>
+<li>Copy our scheduler files (<span style="color: #0000ff;">EDF-LQ.py</span>; <span style="color: #0000ff;">EDF_LQ_mono.py</span>, <span style="color: #0000ff;">EDF_LQ_Server.py</span> and <span style="color: #0000ff;">EDF-GQ.py</span>) into Simso scheduler folder: <span style="font-family: courier new; font-size: 16px;">simso\schedulers</span></li>
 <li>Customize and run <i>taskset-generator.py</i> script; </li>
 <li> Run the generated task set in EDF-LQ and EDF-GQ schedulers; </li>
 <li> Run the graphic generator script in R to generate the outputs graphics.</li>
 </ul>
-<p align="justify><b>Important Note:</b> In our original simulation we used Microsoft Excel, to compute the average values of deadline miss ratio, response timee, preemption and migration, before
+<p align="justify><b>Important Note:</b> In our original simulation we used Microsoft Excel, to compute the average values of deadline miss ratio, response time, preemption and migration, before
 generating the graphs in R. For lack of time, we did not generated a general script for all these parameters. Nonetheless, the R script in the <i>example.zip</i> package contains 
 a  the script that illustrates how this would work without Microsoft Excel.
 
+<!-- Quick guide for running the example script -->
+<p><span style="background-color: #2b2301; color: #fff; display: inline-block; padding: 3px 10px; font-weight: bold; border-radius: 5px;">Quick guide for running the example script</span></p>
+<ul>
+<li>Copy our scheduler files (<span style="color: #0000ff;">EDF-LQ.py</span>; <span style="color: #0000ff;">EDF_LQ_mono.py</span>, <span style="color: #0000ff;">EDF_LQ_Server.py</span> and <span style="color: #0000ff;">EDF-GQ.py</span>) into Simso scheduler folder: <span style="font-family: courier new; font-size: 16px;">simso\schedulers</span></li>
+<li> Check the path for the output files (graphs in .eps format)
+<li> Run the file <span style="color: #0000ff;">graph_script.txt</span> to generate illustrative graphs regarding deadline miss ratio, average response time, preemption and migration</li>
+</ul>
+	  
+	  
 	</body>
 </html>
