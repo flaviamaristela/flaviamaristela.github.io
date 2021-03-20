@@ -188,10 +188,23 @@ generating the graphs in R. For lack of time, we did not generated a general scr
 <p><span style="background-color: #2b2301; color: #fff; display: inline-block; padding: 3px 10px; font-weight: bold; border-radius: 5px;">Quick guide for running the example script</span></p>
 <ul>
 <li>Copy our scheduler files (<span style="color: #0000ff;">EDF-LQ.py</span>; <span style="color: #0000ff;">EDF_LQ_mono.py</span>, <span style="color: #0000ff;">EDF_LQ_Server.py</span> and <span style="color: #0000ff;">EDF-GQ.py</span>) into Simso scheduler folder: <span style="font-family: courier new; font-size: 16px;">simso\schedulers</span></li>
-<li> Check the path for the output files (graphs in .eps format)
-<li> Run the file <span style="color: #0000ff;">graph_script.txt</span> to generate illustrative graphs regarding deadline miss ratio, average response time, preemption and migration</li>
+<li> Check the path for the output files (graphs in .eps format). To do so, open the file <span style="color: #0000ff;">script_graph_dmr.txt</span>, which is responsible for generating illustrative graphs, and set the path for the .eps files</li>
+<li> Open any R IDE and run the source in file <span style="color: #0000ff;">script_graph_dmr.txt</span>. </li>
+<li> If you want to see the results regarding the average response time, run the source in file <span style="color: #0000ff;">script_graph_response_time.txt</span>. </li>
 </ul>
-	  
+
+<!-- Generating the same graphs from the paper -->
+<p><span style="background-color: #2b2301; color: #fff; display: inline-block; padding: 3px 10px; font-weight: bold; border-radius: 5px;"><b>Generating <i>deadline miss ratio</i> and <i>average response time</i> of the paper graphs</b></span></p>
+<ul>
+<li> Download the file <a href="graph.zip">graph.zip</a> and uncompress it;
+<li> Open the files <span style="color: #0000ff;">script_avg_response_time.txt</span> and <span style="color: #0000ff;">script_avg_response_time</span>. These files generates the graphs for Figures 6(b) and 6(d) in the paper. Respectively, <i><b>deadline miss ratio</b</i>
+and <i><b>average response time</b></i> for arbitrary deadlines task sets;</li>
+<li> Open any R IDE and run the source in file <span style="color: #0000ff;">script_graph_dmr.txt</span>. </li>
+<li> If you want to see the results regarding the average response time, run the source in file <span style="color: #0000ff;">script_graph_response_time.txt</span>. </li>
+</ul>
+
+															     
+															     
 	  
 	</body>
 </html>
